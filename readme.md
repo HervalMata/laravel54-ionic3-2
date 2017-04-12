@@ -21,3 +21,10 @@ $ mysql -uroot -p123478
 mysql> create database code_laravel54_ionic2;
 mysql> exit;
 ```
+- Criando usuário administrador
+
+```bash
+$ php artisan make:migration add_role_to_users_table --table=users
+$ php artisan make:migration create_user_admin_data --table=users
+$ php artisan migrate:refresh
+```
