@@ -28,3 +28,16 @@ $ php artisan make:migration add_role_to_users_table --table=users
 $ php artisan make:migration create_user_admin_data --table=users
 $ php artisan migrate:refresh
 ```
+
+- Criando usuários com seeders
+
+```bash
+$ php artisan make:seeder UsersTableSeeder
+$ php artisan migrate:refresh --seed
+```
+
+- Autenticando usuários
+
+```bash
+$ php artisan make:auth
+```
