@@ -1,7 +1,7 @@
 [laravel-ide-helper]: https://github.com/barryvdh/laravel-ide-helper
 ## Ionic2 com Laravel 5.4
 
-Curso de Laravel com Ionic2 para desenvolver uma aplicação paracida com o NetFlix.
+Curso de Laravel com Ionic2 para desenvolver uma aplicação baseada com o NetFlix.
 
 ## Passos executados
 
