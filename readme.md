@@ -36,8 +36,13 @@ $ php artisan make:seeder UsersTableSeeder
 $ php artisan migrate:refresh --seed
 ```
 
-- Autenticando usuários
+- Autenticando usuários Administrativos
 
 ```bash
 $ php artisan make:auth
+
+# alterando a role do user 1
+$ mysql -uroot -p123478
+mysql> use code_laravel54_ionic2;
+mysql> update users set role=2 where id=1;
 ```
