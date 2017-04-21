@@ -14,6 +14,26 @@ $ php artisan vendor:publish --provider="Barryvdh\LaravelIdeHelper\IdeHelperServ
 $ php artisan ide-helper:generate
 $ php artisan ide-helper:meta
 ```
+Autocomplete dos métodos fluentes do Laravel com o IDE Helper Generator
+Basta acessar `config/ide-helper.php`, e alterar a linha abaixo:
+
+```php
+// de false para true
+...
+'include_fluent' => true,
+...
+```
+Para ter o autocomple dos Models, tem que instalar uma dependência:
+```bash
+$ composer require doctrine/dbal:~2.3
+# para gerar doc de um Model com o Laravel IDE Helper
+$ php artisan ide-helper:models --dir="app/Models" "CodeFlix\Models\User"
+# ou para toda o dir
+$ php artisan ide-helper:models --dir="app/Models"
+# ou para ignorar algum model
+$ php artisan ide-helper:models --dir="app/Models" --ignore="Post,User"
+```
+
 - Criar Banco de Dados no MySQL 5.7
 
 ```bash
