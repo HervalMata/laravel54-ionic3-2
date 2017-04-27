@@ -66,3 +66,13 @@ $ mysql -uroot -p123478
 mysql> use code_laravel54_ionic2;
 mysql> update users set role=2 where id=1;
 ```
+
+- Por minha conta: Add Whoops na Aplicação - [Leia mais](https://github.com/GrahamCampbell/Laravel-Exceptions)
+
+```bash
+$ composer require graham-campbell/exceptions
+$ composer require filp/whoops --dev
+
+# add as configurações
+$ php artisan vendor:publish --provider="GrahamCampbell\Exceptions\ExceptionsServiceProvider"
+```

@@ -177,6 +177,8 @@ return [
         CodeFlix\Providers\EventServiceProvider::class,
         CodeFlix\Providers\RouteServiceProvider::class,
 
+        GrahamCampbell\Exceptions\ExceptionsServiceProvider::class,
+
     ],
 
     /*
