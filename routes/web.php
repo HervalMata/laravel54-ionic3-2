@@ -17,10 +17,19 @@ Route::get('/', function () {
 });
 
 //Rotas para autenticação que o laravel já fornece
-Auth::routes();
+//Auth::routes(); Aula 23 desabilita
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')
+    ->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')
+    ->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')
+    ->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 //Rota Home para users logado
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
 
 //Rotas para users administrativos
 Route::group([
@@ -34,7 +43,8 @@ Route::group([
     Route::group(['middleware' => 'can:admin'], function (){
         Route::name('logout')->post('logout', 'Auth\LoginController@logout');
         Route::get('/dashboard', function () {
-            return "Área Administrativa funcionando";
+            //return "Área Administrativa funcionando";
+            return view('admin.dashboard');
         });
     });
 });
