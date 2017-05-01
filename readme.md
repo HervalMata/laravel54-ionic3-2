@@ -76,3 +76,12 @@ $ composer require filp/whoops --dev
 # add as configurações
 $ php artisan vendor:publish --provider="GrahamCampbell\Exceptions\ExceptionsServiceProvider"
 ```
+
+- Traduzir o envio de e-mail para pt-BR - Aula 25 traduzindo e-mails
+
+```bash
+$ php artisan make:notification DefaultResetPasswordNotification
+$ php artisan vendor:publish --tag=laravel-notifications
+# criar UserController com resources e o model Models\User
+$ php artisan make:controller Admin\\UserController --resource --model=Models\\User
+```

@@ -46,6 +46,7 @@ Route::group([
             //return "Área Administrativa funcionando";
             return view('admin.dashboard');
         });
+        Route::resource('users', 'UserController');
     });
 });
 
