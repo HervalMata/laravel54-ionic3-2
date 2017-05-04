@@ -85,3 +85,9 @@ $ php artisan vendor:publish --tag=laravel-notifications
 # criar UserController com resources e o model Models\User
 $ php artisan make:controller Admin\\UserController --resource --model=Models\\User
 ```
+
+- Pacote bootstrapper [Leia Mais](https://github.com/patricktalmadge/bootstrapper)
+
+```bash
+$ composer require patricktalmadge/bootstrapper:5.*
+```

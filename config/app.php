@@ -168,6 +168,8 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        GrahamCampbell\Exceptions\ExceptionsServiceProvider::class,
+        Bootstrapper\BootstrapperL5ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -178,7 +180,7 @@ return [
         CodeFlix\Providers\EventServiceProvider::class,
         CodeFlix\Providers\RouteServiceProvider::class,
 
-        GrahamCampbell\Exceptions\ExceptionsServiceProvider::class,
+
 
     ],
 
@@ -228,6 +230,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Table' => Bootstrapper\Facades\Table::class ,
 
     ],
 

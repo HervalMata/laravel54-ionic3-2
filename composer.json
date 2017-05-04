@@ -9,7 +9,8 @@
         "doctrine/dbal": "~2.3",
         "graham-campbell/exceptions": "^9.3",
         "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "patricktalmadge/bootstrapper": "5.*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.3",

@@ -3,8 +3,10 @@
 namespace CodeFlix\Http\Controllers\Admin;
 
 use CodeFlix\Models\User;
+use function compact;
 use Illuminate\Http\Request;
 use CodeFlix\Http\Controllers\Controller;
+use function view;
 
 class UserController extends Controller
 {
@@ -15,7 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::paginate();
+
+        return view('admin.users.index', compact('users'));
     }
 
     /**
