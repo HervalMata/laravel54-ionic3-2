@@ -35,7 +35,7 @@ class User extends Authenticatable implements TableInterface
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param  string $token
      * @return void
      */
     public function sendPasswordResetNotification($token)
@@ -62,7 +62,7 @@ class User extends Authenticatable implements TableInterface
      */
     public function getValueForHeader($header)
     {
-        switch ($header){
+        switch ($header) {
             case '#':
                 return $this->id;
             case 'Nome':
