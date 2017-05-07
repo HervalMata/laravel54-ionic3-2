@@ -2,10 +2,13 @@
 
 namespace CodeFlix\Models;
 
+use function bcrypt;
 use Bootstrapper\Interfaces\TableInterface;
 use CodeFlix\Notifications\DefaultResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use const null;
+use function str_random;
 
 class User extends Authenticatable implements TableInterface
 {
@@ -31,6 +34,11 @@ class User extends Authenticatable implements TableInterface
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function generatePassword($password = null)
+    {
+        return !$password ? bcrypt(str_random(8)) : bcrypt($password);
+    }
 
     /**
      * Send the password reset notification.

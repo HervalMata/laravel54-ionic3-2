@@ -134,3 +134,19 @@ $ npm install
 # compilar os js/css da aplicação
 $ npm run dev
 ```
+
+####2 - Usando o Laravel Mix - Reloading
+Para rodar o watch o servidor do artisan já deverá estar rodando, pois o **browserSync**, usa um proxy no servidor do artisan na porta 8000, para a porta 3000.
+
+```js
+// rodando o watch
+...
+mix..browserSync('http://localhost:8000');
+```
+
+```bash
+# rode o servidor do artisan
+$ php artisan serve
+# rodando o watch
+$ npm run watch
+```
