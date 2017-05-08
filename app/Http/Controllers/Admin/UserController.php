@@ -58,8 +58,10 @@ class UserController extends Controller
         $data = $form->getFieldValues();
         $data['role'] = User::ROLE_ADMIN;
         $data['password'] = User::generatePassword();
-
+        //cria o user com o metodo create
         User::create($data);
+        //enviando um msg de sucesso
+        $request->session()->flash('message', 'Usuário criado com sucesso!');
 
         return redirect()->route('admin.users.index');
     }
