@@ -89,7 +89,13 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $form = FormBuilder::create(UserForm::class, [
+            'url' => route('admin.users.update', ['user' => $user->id]),
+            'method' => 'PUT',
+            'model' => $user
+        ]);
+
+        return view('admin.users.edit', compact('form'));
     }
 
     /**
