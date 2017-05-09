@@ -2,6 +2,7 @@
 
 namespace CodeFlix\Http\Controllers\Admin;
 
+use function array_except;
 use CodeFlix\Forms\UserForm;
 use CodeFlix\Models\User;
 use function compact;
@@ -107,7 +108,27 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        /** @var Form $form */
+        $form = FormBuilder::create(UserForm::class, [
+            'data' => ['id' => $user->id]
+        ]);
+
+        if(!$form->isValid()){
+            //redirecionar para pag de criação de usuários
+            return redirect()
+                ->back()
+                ->withErrors($form->getErrors())
+                ->withInput();
+        }
+
+        $data = array_except($form->getFieldValues(), ['role', 'password']);
+
+        $user->fill($data);
+        $user->save();
+        //enviando um msg de sucesso
+        $request->session()->flash('message', 'Usuário alterado com sucesso!');
+
+        return redirect()->route('admin.users.index');
     }
 
     /**
