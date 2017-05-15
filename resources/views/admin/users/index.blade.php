@@ -12,9 +12,12 @@
             {!! Table::withContents($users->items())->striped()
                 ->callback('id', function ($field, $user) {
                     $linkEdit = route('admin.users.edit', ['user' => $user->id]);
+                    $linkShow = route('admin.users.show', ['user' => $user->id]);
 
                     return Button::link(Icon::create('pencil'))
-                            ->asLinkTo($linkEdit);
+                            ->asLinkTo($linkEdit) . '|'.
+                            Button::link(Icon::create('remove'))
+                            ->asLinkTo($linkShow);
                 })
             !!}
         </div>

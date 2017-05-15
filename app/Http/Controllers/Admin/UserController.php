@@ -43,7 +43,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -52,7 +52,7 @@ class UserController extends Controller
         /** @var Form $form */
         $form = FormBuilder::create(UserForm::class);
 
-        if(!$form->isValid()){
+        if (!$form->isValid()) {
             //redirecionar para pag de criação de usuários
             return redirect()
                 ->back()
@@ -74,18 +74,18 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \CodeFlix\Models\User  $user
+     * @param  \CodeFlix\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
     {
-        //
+        return view('admin.users.show')->with(['user' => $user]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \CodeFlix\Models\User  $user
+     * @param  \CodeFlix\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -102,8 +102,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \CodeFlix\Models\User  $user
+     * @param  \Illuminate\Http\Request $request
+     * @param  \CodeFlix\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -113,7 +113,7 @@ class UserController extends Controller
             'data' => ['id' => $user->id]
         ]);
 
-        if(!$form->isValid()){
+        if (!$form->isValid()) {
             //redirecionar para pag de criação de usuários
             return redirect()
                 ->back()
@@ -134,11 +134,15 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \CodeFlix\Models\User  $user
+     * @param  \CodeFlix\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $user, Request $request)
     {
-        //
+        $user->delete();
+
+        //enviando um msg de sucesso
+        $request->session()->flash('message', "Usuário <strong>{$user->name}</strong> excluído com sucesso!");
+        return redirect()->route('admin.users.index');
     }
 }
