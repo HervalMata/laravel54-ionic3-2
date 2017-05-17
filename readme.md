@@ -5,7 +5,7 @@ Curso de Laravel com Ionic2 para desenvolver uma aplicação baseada com o NetFl
 
 ## Passos com Beckend
 
-####1 - Laravel 5 IDE Helper Generator: [Leia mais.][laravel-ide-helper]
+#### 1 - Laravel 5 IDE Helper Generator: [Leia mais.][laravel-ide-helper]
 
 ```bash
 # add no composer dev
@@ -35,14 +35,14 @@ $ php artisan ide-helper:models --dir="app/Models"
 $ php artisan ide-helper:models --dir="app/Models" --ignore="Post,User"
 ```
 
-####2 - Criar Banco de Dados no MySQL 5.7
+#### 2 - Criar Banco de Dados no MySQL 5.7
 
 ```bash
 $ mysql -uroot -p123478
 mysql> create database code_laravel54_ionic2;
 mysql> exit;
 ```
-####3 - Criando usuário administrador
+#### 3 - Criando usuário administrador
 
 ```bash
 $ php artisan make:migration add_role_to_users_table --table=users
@@ -50,14 +50,14 @@ $ php artisan make:migration create_user_admin_data --table=users
 $ php artisan migrate:refresh
 ```
 
-####4 - Criando usuários com seeders
+#### 4 - Criando usuários com seeders
 
 ```bash
 $ php artisan make:seeder UsersTableSeeder
 $ php artisan migrate:refresh --seed
 ```
 
-####5 - Autenticando usuários Administrativos
+#### 5 - Autenticando usuários Administrativos
 
 ```bash
 $ php artisan make:auth
@@ -68,7 +68,7 @@ mysql> use code_laravel54_ionic2;
 mysql> update users set role=2 where id=1;
 ```
 
-####6 - Por minha conta: Add Whoops na Aplicação - [Leia mais](https://github.com/GrahamCampbell/Laravel-Exceptions)
+#### 6 - Por minha conta: Add Whoops na Aplicação - [Leia mais](https://github.com/GrahamCampbell/Laravel-Exceptions)
 
 ```bash
 $ composer require graham-campbell/exceptions
@@ -90,7 +90,7 @@ class Handler extends GrahamCampbell\Exceptions\NewExceptionHandler
 ...
 ```
 
-####7 - Traduzir o envio de e-mail para pt-BR - Aula 25 traduzindo e-mails
+#### 7 - Traduzir o envio de e-mail para pt-BR - Aula 25 traduzindo e-mails
 
 ```bash
 $ php artisan make:notification DefaultResetPasswordNotification
@@ -99,14 +99,14 @@ $ php artisan vendor:publish --tag=laravel-notifications
 $ php artisan make:controller Admin\\UserController --resource --model=Models\\User
 ```
 
-####8 - Pacote bootstrapper [Leia Mais](https://github.com/patricktalmadge/bootstrapper)
+#### 8 - Pacote bootstrapper [Leia Mais](https://github.com/patricktalmadge/bootstrapper)
 
 ```bash
 # http://bootstrapper.patrickrosemusic.co.uk/installation
 $ composer require patricktalmadge/bootstrapper:5.*
 ```
 
-####9 - Pacote [Laravel 5 form builder](https://github.com/kristijanhusak/laravel-form-builder)
+#### 9 - Pacote [Laravel 5 form builder](https://github.com/kristijanhusak/laravel-form-builder)
 
 Pacote para criação de usuários, inspirado no Symfony's form builder, com suporte ao Bootstrap 3
 Esse pacote usa o pacote [Laravel Collective HTML](https://laravelcollective.com/docs/5.3/html).
@@ -124,9 +124,26 @@ $ composer update
 $ php artisan make:form Forms/UserForm --fields="name:text, email:email"
 ```
 
+#### 10 - Pacote [Laravel 5 Repositories](https://github.com/andersao/l5-repository)
+
+Laravel 5 Repositories é usado para abstrair a camada de dados, tornando nossa aplicação mais flexível para manter.
+Você quer saber um pouco mais sobre o padrão do Repositório? [Using Repository Pattern in Laravel 5](http://bit.ly/1IdmRNS).
+
+Links da documentação do Pacote:
+
+https://packagist.org/packages/prettus/l5-repository
+
+```bash
+# instalando uma versão específica
+$ composer require prettus/l5-repository:2.6.18
+$ php artisan vendor:publish --provider "Prettus\Repository\Providers\RepositoryServiceProvider"
+$ php artisan make:repository Category
+$ php artisan make:provider RepositoryServiceProvider
+```
+
 ## Passos com o Frontend
 
-####1 - Instalar o node na Aplicação Laravel
+#### 1 - Instalar o node na Aplicação Laravel
 
 ```bash
 # instalando a dependências do NodeJS na raiz do projeto
@@ -135,13 +152,12 @@ $ npm install
 $ npm run dev
 ```
 
-####2 - Usando o Laravel Mix - Reloading
+#### 2 - Usando o Laravel Mix - Reloading
 Para rodar o watch o servidor do artisan já deverá estar rodando, pois o **browserSync**, usa um proxy no servidor do artisan na porta 8000, para a porta 3000.
 
 ```js
-// rodando o watch
-...
-mix..browserSync('http://localhost:8000');
+/* rodando o watch */
+mix.browserSync('http://localhost:8000');
 ```
 
 ```bash

@@ -171,6 +171,7 @@ return [
         GrahamCampbell\Exceptions\ExceptionsServiceProvider::class,
         Bootstrapper\BootstrapperL5ServiceProvider::class,
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
 
         /*
          * Application Service Providers...
