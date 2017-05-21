@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace CodeFlix\Http\Controllers\Admin\Auth;
 
-use App\Http\Controllers\Controller;
+use CodeFlix\Http\Controllers\Controller;
+use CodeFlix\Models\User;
+use function dd;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -25,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -35,5 +38,30 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Alterado para aula 20 - 17/04/17
+     * @param Request $request
+     * @return array
+     *
+     */
+    protected function credentials(Request $request)
+    {
+        $data = $request->only($this->username(), 'password');
+        $data['role'] = User::ROLE_ADMIN;
+
+        return $data;
+    }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
+        //dd('aqui');
+        return view('admin.auth.login');
     }
 }

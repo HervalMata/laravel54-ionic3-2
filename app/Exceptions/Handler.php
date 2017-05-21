@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Exceptions;
+namespace CodeFlix\Exceptions;
 
 use Exception;
+use GrahamCampbell\Exceptions\NewExceptionHandler;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -60,6 +61,7 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
-        return redirect()->guest(route('login'));
+        //return redirect()->guest(route('login'));
+        return redirect()->guest(route('admin.login'));
     }
 }

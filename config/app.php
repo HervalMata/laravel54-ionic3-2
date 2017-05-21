@@ -1,5 +1,7 @@
 <?php
 
+use CodeFlix\Providers\RepositoryServiceProvider;
+
 return [
 
     /*
@@ -12,7 +14,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +66,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Sao_Paulo',
+    //'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'pt-BR',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,15 +170,23 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        GrahamCampbell\Exceptions\ExceptionsServiceProvider::class,
+        Bootstrapper\BootstrapperL5ServiceProvider::class,
+        Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        Jrean\UserVerification\UserVerificationServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        CodeFlix\Providers\AppServiceProvider::class,
+        CodeFlix\Providers\AuthServiceProvider::class,
+        // CodeFlix\Providers\BroadcastServiceProvider::class,
+        CodeFlix\Providers\EventServiceProvider::class,
+        CodeFlix\Providers\RouteServiceProvider::class,
+        CodeFlix\Providers\RepositoryServiceProvider::class,
+
+
 
     ],
 
@@ -225,6 +236,39 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        /*
+         * Facades Vendors
+         * https://github.com/patricktalmadge/bootstrapper
+         * http://bootstrapper.patrickrosemusic.co.uk/installation
+         */
+        'Accordion' => Bootstrapper\Facades\Accordion::class,
+        'Alert' => Bootstrapper\Facades\Alert::class,
+        'Badge' => Bootstrapper\Facades\Badge::class,
+        'Breadcrumb' => Bootstrapper\Facades\Breadcrumb::class,
+        'Button' => Bootstrapper\Facades\Button::class,
+        'ButtonGroup' => Bootstrapper\Facades\ButtonGroup::class,
+        'Carousel' => Bootstrapper\Facades\Carousel::class,
+        'ControlGroup' => Bootstrapper\Facades\ControlGroup::class,
+        'DropdownButton' => Bootstrapper\Facades\DropdownButton::class,
+        'Form' => Bootstrapper\Facades\Form::class,
+        'Helpers' => Bootstrapper\Facades\Helpers::class,
+        'Icon' => Bootstrapper\Facades\Icon::class,
+        'InputGroup' => Bootstrapper\Facades\InputGroup::class,
+        'Image' => Bootstrapper\Facades\Image::class,
+        'Label' => Bootstrapper\Facades\Label::class,
+        'MediaObject' => Bootstrapper\Facades\MediaObject::class,
+        'Modal' => Bootstrapper\Facades\Modal::class,
+        'Navbar' => Bootstrapper\Facades\Navbar::class,
+        'Navigation' => Bootstrapper\Facades\Navigation::class,
+        'Panel' => Bootstrapper\Facades\Panel::class,
+        'ProgressBar' => Bootstrapper\Facades\ProgressBar::class,
+        'Tabbable' => Bootstrapper\Facades\Tabbable::class,
+        'Table' => Bootstrapper\Facades\Table::class,
+        'Thumbnail' => Bootstrapper\Facades\Thumbnail::class,
+        // https://github.com/kristijanhusak/laravel-form-builder
+        'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
+        //https://github.com/jrean/laravel-user-verification
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
 
     ],
 
