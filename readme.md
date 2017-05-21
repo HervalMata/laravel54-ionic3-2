@@ -159,12 +159,13 @@ Jrean\UserVerification\UserVerificationServiceProvider::class,
 $ php artisan vendor:publish --provider="Jrean\UserVerification\UserVerificationServiceProvider" --tag="migrations"
 # arquivo de configuração
 $ php artisan vendor:publish --provider="Jrean\UserVerification\UserVerificationServiceProvider" --tag="config"
+$ php artisan vendor:publish --provider="Jrean\UserVerification\UserVerificationServiceProvider" --tag=views
 ```
 
 Depois das configurções rodas as migrates:
 
  ```bash
- $ php artisan migrate:refresh
+ $ php artisan migrate:refresh --seed
  ```
 
 ## Passos com o Frontend
