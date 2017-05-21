@@ -5,6 +5,7 @@ namespace CodeFlix\Http\Controllers\Admin;
 use function array_except;
 use CodeFlix\Forms\UserForm;
 use CodeFlix\Models\User;
+use CodeFlix\Repositories\UserRepository;
 use function compact;
 use FormBuilder;
 use Illuminate\Http\Request;
@@ -14,13 +15,27 @@ use Kris\LaravelFormBuilder\Form;
 class UserController extends Controller
 {
     /**
+     * @var UserRepository
+     */
+    private $repository;
+
+    /**
+     * UserController constructor.
+     */
+    public function __construct(UserRepository $repository)
+    {
+
+        $this->repository = $repository;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $users = User::paginate();
+        $users = $this->repository->paginate();
 
         return view('admin.users.index', compact('users'));
     }
@@ -61,10 +76,11 @@ class UserController extends Controller
         }
 
         $data = $form->getFieldValues();
-        $data['role'] = User::ROLE_ADMIN;
-        $data['password'] = User::generatePassword();
+        //$data['role'] = User::ROLE_ADMIN;
+        //$data['password'] = User::generatePassword();
         //cria o user com o metodo create
-        User::create($data);
+        //User::create($data);
+        $this->repository->create($data);
         //enviando um msg de sucesso
         $request->session()->flash('message', 'Usuário criado com sucesso!');
 
@@ -103,14 +119,14 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \CodeFlix\Models\User $user
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         /** @var Form $form */
         $form = FormBuilder::create(UserForm::class, [
-            'data' => ['id' => $user->id]
+            'data' => ['id' => $id]
         ]);
 
         if (!$form->isValid()) {
@@ -123,8 +139,9 @@ class UserController extends Controller
 
         $data = array_except($form->getFieldValues(), ['role', 'password']);
 
-        $user->fill($data);
-        $user->save();
+        //$user->fill($data);
+        //$user->save();
+        $this->repository->update($data, $id);
         //enviando um msg de sucesso
         $request->session()->flash('message', 'Usuário alterado com sucesso!');
 
@@ -134,15 +151,15 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \CodeFlix\Models\User $user
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user, Request $request)
+    public function destroy($id, Request $request)
     {
-        $user->delete();
-
+        //$user->delete();
+        $this->repository->delete($id);
         //enviando um msg de sucesso
-        $request->session()->flash('message', "Usuário <strong>{$user->name}</strong> excluído com sucesso!");
+        $request->session()->flash('message', "Usuário ID: <strong>{$id}</strong> excluído com sucesso!");
         return redirect()->route('admin.users.index');
     }
 }

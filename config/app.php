@@ -1,5 +1,7 @@
 <?php
 
+use CodeFlix\Providers\RepositoryServiceProvider;
+
 return [
 
     /*
@@ -172,6 +174,7 @@ return [
         Bootstrapper\BootstrapperL5ServiceProvider::class,
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        Jrean\UserVerification\UserVerificationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -181,6 +184,7 @@ return [
         // CodeFlix\Providers\BroadcastServiceProvider::class,
         CodeFlix\Providers\EventServiceProvider::class,
         CodeFlix\Providers\RouteServiceProvider::class,
+        CodeFlix\Providers\RepositoryServiceProvider::class,
 
 
 
@@ -263,6 +267,8 @@ return [
         'Thumbnail' => Bootstrapper\Facades\Thumbnail::class,
         // https://github.com/kristijanhusak/laravel-form-builder
         'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
+        //https://github.com/jrean/laravel-user-verification
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
 
     ],
 

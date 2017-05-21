@@ -141,6 +141,32 @@ $ php artisan make:repository Category
 $ php artisan make:provider RepositoryServiceProvider
 ```
 
+#### 11 - Pacote [Laravel User Verification](https://github.com/jrean/laravel-user-verification)
+
+```bash
+# instalando uma versão específica
+$ composer require https://github.com/jrean/laravel-user-verification:4.1.9
+```
+adiconar a Facade no `config/app.php`:
+
+```php
+# RouteServiceProvider
+Jrean\UserVerification\UserVerificationServiceProvider::class,
+...
+# Alias
+'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
+# Publicar o package config file com o comando:
+$ php artisan vendor:publish --provider="Jrean\UserVerification\UserVerificationServiceProvider" --tag="migrations"
+# arquivo de configuração
+$ php artisan vendor:publish --provider="Jrean\UserVerification\UserVerificationServiceProvider" --tag="config"
+```
+
+Depois das configurções rodas as migrates:
+
+ ```bash
+ $ php artisan migrate:refresh
+ ```
+
 ## Passos com o Frontend
 
 #### 1 - Instalar o node na Aplicação Laravel
