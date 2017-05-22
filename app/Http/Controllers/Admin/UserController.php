@@ -11,6 +11,7 @@ use FormBuilder;
 use Illuminate\Http\Request;
 use CodeFlix\Http\Controllers\Controller;
 use Kris\LaravelFormBuilder\Form;
+use Auth;
 
 class UserController extends Controller
 {
@@ -151,10 +152,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request $request
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, Request $request)
+    public function destroy(Request $request, $id)
     {
         //$user->delete();
         $this->repository->delete($id);
@@ -162,4 +164,35 @@ class UserController extends Controller
         $request->session()->flash('message', "Usuário ID: <strong>{$id}</strong> excluído com sucesso!");
         return redirect()->route('admin.users.index');
     }
+
+    /**
+     * Exibir na aplicacao o form de alteracao de senha
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showPasswordForm()
+    {
+        if (!Auth::check()) {
+            return abort(401, 'Você não tem permissão.');
+        }
+
+        // Get the currently authenticated user...
+        $user = Auth::user();
+
+        return view('admin.users.password', ['data' => $user]);
+    }
+
+    /**
+     * Acao para alterar o senha do user vindo do form
+     * changePasswordForm
+     * @param  \Illuminate\Http\Request $request
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(Request $request, $id)
+    {
+        //...
+        dd($request->all());
+    }
+
 }
