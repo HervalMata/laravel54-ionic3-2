@@ -45,6 +45,10 @@
                                 'onclick'=> "event.preventDefault();document.getElementById(\"form-logout\").submit()
                 ;"
                             ]
+                        ],
+                        [
+                            'link'=> route('admin.change.password'),
+                            'title'=>'Meus Dados',
                         ]
                     ]
                 ]

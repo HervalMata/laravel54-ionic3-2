@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use CodeFlix\Http\Controllers\Controller;
 use Kris\LaravelFormBuilder\Form;
 use Auth;
+use function redirect;
 
 class UserController extends Controller
 {
@@ -187,12 +188,72 @@ class UserController extends Controller
      * changePasswordForm
      * @param  \Illuminate\Http\Request $request
      * @param  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updatePassword(Request $request, $id)
     {
-        //...
-        dd($request->all());
+        /* criado um XXXRequest para desacoplar do Crontroller
+        $this->validate($request,
+            [
+                'name' => 'required|min:3|max:255',
+                'email' => "required|max:255|unique:users,email,$id",
+                'password' => $request->password != null ? 'required|min:8|confirmed' : 'confirmed',
+                'password_confirmation' => 'sometimes|required_with:password',
+//            'password'=> [
+//                //'required_with:user.old_password',
+//                'min:6',
+//                'confirmed',
+//                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*([-+_!@#$%^&*.,;?])).+$/',
+//                //'different:user.old_password'
+//            ],
+
+            ],
+            [
+                //'required' => ':attribute não deve ficar vazio',
+                //'min' => ':attribute deve ter mais de :min caracteres',
+                'numeric' => ':attribute deve ser numérico',
+            ]); */
+
+        //regras para validacao, podendo aplicar em uma classe RequestCustom
+        $regras = [
+            'name' => 'required|min:3|max:255',
+            'email' => "required|max:255|unique:users,email,$id",
+            'password' => $request->password != null ? 'required|min:6|confirmed' : 'confirmed',
+            'password_confirmation' => 'sometimes|required_with:password',
+        ];
+        //personalizando as msg de erro na validacao
+        $mensagens = [
+            'numeric' => ':attribute deve ser numérico',
+        ];
+
+        // vrf user logged
+        if (!Auth::check() || $id != Auth::id()) {
+            return abort(401, 'Você não tem permissão.');
+        }
+        //localzando user, caso nao encontre gera uma exception
+        $user = $this->repository->find($id);
+        //vrf a validacao com base nas regras e msgs
+        $v = \Validator::make($request->all(), $regras, $mensagens);
+        //vrf se passou
+        if ($v->passes()) {
+            unset($request['password_confirmation']);
+
+            if ($request->password == null) {
+                unset($request['password']);
+            } else {
+                $request['password'] = bcrypt($request['password']);
+            }
+
+            $user->update($request->all());
+            $request->session()->flash('message', 'Dados atualizados com sucesso!');
+
+            return redirect()->route('admin.dashboard');
+        }
+
+        //retorna para o form com os erros e passando os old_values(withInput)
+        //return redirect()->to('admin/change/password')->withErrors($v);
+        return redirect()->route('admin.change.password')->withErrors($v)->withInput();
+
     }
 
 }

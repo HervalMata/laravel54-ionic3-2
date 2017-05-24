@@ -46,7 +46,7 @@ Route::group([
 
     Route::group(['middleware' => ['isVerified', 'can:admin']], function () {
         Route::name('logout')->post('logout', 'Auth\LoginController@logout');
-        Route::get('/dashboard', function () {
+        Route::name('dashboard')->get('/dashboard', function () {
             //return "Área Administrativa funcionando";
             return view('admin.dashboard');
         });
