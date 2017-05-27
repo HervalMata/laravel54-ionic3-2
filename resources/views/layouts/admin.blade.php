@@ -76,6 +76,12 @@
         </div>
     @endif
 
+    @if(Session::has('info'))
+        <div class="container">
+            {!! Alert::info(Session::get('info'))->close() !!}
+        </div>
+    @endif
+
     @yield('content')
 </div>
 
