@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Rotas para autenticação que o laravel já fornece
+//Rotas para autenticação que o laravel já fornece - Aula 19
 //Auth::routes(); Aula 23 desabilita
 
 // Password Reset Routes...
@@ -35,22 +35,26 @@ Route::get('email-verification/check/{token}', 'EmailVerificationController@getV
 //Rota Home para users logado
 //Route::get('/home', 'HomeController@index');
 
-//Rotas para users administrativos
+//Rotas para users administrativos - Aula 20
 Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
     'namespace' => 'Admin\\'
-], function (){
+], function () {
     Route::name('login')->get('login', 'Auth\LoginController@showLoginForm');
     Route::post('login', 'Auth\LoginController@login');
 
-    Route::group(['middleware' => ['isVerified','can:admin']], function (){
+    Route::group(['middleware' => ['isVerified', 'can:admin']], function () {
         Route::name('logout')->post('logout', 'Auth\LoginController@logout');
-        Route::get('/dashboard', function () {
+        Route::name('dashboard')->get('/dashboard', function () {
             //return "Área Administrativa funcionando";
             return view('admin.dashboard');
         });
         Route::resource('users', 'UserController');
+        Route::name('change.password')
+            ->get('/change/password', 'UserController@showPasswordForm');
+        Route::name('update.password')
+            ->put('update/password/{id}', 'UserController@updatePassword');
     });
 });
 
@@ -60,7 +64,7 @@ Route::get('/force-login', function () {
 });
 
 //Rotas úteis para o develop
-Route::get('routes', function() {
+Route::get('routes', function () {
     \Artisan::call('route:list');
-    return "<pre>".\Artisan::output();
+    return "<pre>" . \Artisan::output();
 });

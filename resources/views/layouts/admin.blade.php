@@ -45,6 +45,10 @@
                                 'onclick'=> "event.preventDefault();document.getElementById(\"form-logout\").submit()
                 ;"
                             ]
+                        ],
+                        [
+                            'link'=> route('admin.change.password'),
+                            'title'=>'Meus Dados',
                         ]
                     ]
                 ]
@@ -69,6 +73,12 @@
     @if(Session::has('message'))
         <div class="container">
             {!! Alert::success(Session::get('message'))->close() !!}
+        </div>
+    @endif
+
+    @if(Session::has('info'))
+        <div class="container">
+            {!! Alert::info(Session::get('info'))->close() !!}
         </div>
     @endif
 
