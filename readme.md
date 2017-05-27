@@ -193,3 +193,29 @@ $ php artisan serve
 # rodando o watch
 $ npm run watch
 ```
+
+#### 3 - Exercícios: Implementando Usuários e Categorias
+
+Usuários e Categorias
+
+Nesta primeira fase, você deverá implementar:
+
+* A autenticação administrativa dos usuários com verificação da conta.
+* A administração de usuários.
+* Uma área em que o usuário possa alterar sua senha. Cria duas rotas, uma para mostrar o formulário de alteração de senha e outra para realizar o processo. Quando o usuário validar a conta, deve ser redirecionado para a área de alteração de senha.
+* A administração de categorias. Cada categoria terá id e name.
+
+Faça todas as implementações usando repositórios e acrescente a barra de menus com os links necessários.
+
+```bash
+# Criar migrate categories
+$ php artisan make:migration create_categories_table --create=categories
+# criando o model
+$ php artisan make:model Models/Category
+# ou tudo de uma vez
+$ php artisan make:model Category -m
+# cria mapeamento do Model
+$ php artisan ide-helper:models --dir="app/Models" "CodeFlix\Models\Category"
+# gera o ide_helper
+$ php artisan ide-helper:generate
+```
