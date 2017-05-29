@@ -13,6 +13,18 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+
+$factory->define(\CodeFlix\Models\Category::class,
+    function (Faker\Generator $faker) {
+
+        $faker->addProvider(new Faker\Provider\Lorem($faker));
+
+        return [
+            'name' => $faker->word,
+            //'name' => $faker->words(1, true),
+        ];
+    });
+
 $factory->define(\CodeFlix\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 

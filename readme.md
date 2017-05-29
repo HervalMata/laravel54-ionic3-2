@@ -218,4 +218,10 @@ $ php artisan make:model Category -m
 $ php artisan ide-helper:models --dir="app/Models" "CodeFlix\Models\Category"
 # gera o ide_helper
 $ php artisan ide-helper:generate
+# criar classe para popilar dados
+$ php artisan make:seeder CategoriesTableSeeder
+# reset db
+$ php artisan migrate:refresh
+# comando para ler a classe que popula os dados
+$ php artisan db:seed
 ```
