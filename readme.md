@@ -104,6 +104,7 @@ $ php artisan make:controller Admin\\UserController --resource --model=Models\\U
 ```bash
 # http://bootstrapper.patrickrosemusic.co.uk/installation
 $ composer require patricktalmadge/bootstrapper:5.*
+# opcional
 ```
 
 #### 9 - Pacote [Laravel 5 form builder](https://github.com/kristijanhusak/laravel-form-builder)
@@ -208,7 +209,7 @@ Nesta primeira fase, você deverá implementar:
 Faça todas as implementações usando repositórios e acrescente a barra de menus com os links necessários.
 
 ```bash
-# Criar migrate categories
+# Criar migrate categories metodo tradicional Laravel
 $ php artisan make:migration create_categories_table --create=categories
 # criando o model
 $ php artisan make:model Models/Category
@@ -224,4 +225,26 @@ $ php artisan make:seeder CategoriesTableSeeder
 $ php artisan migrate:refresh
 # comando para ler a classe que popula os dados
 $ php artisan db:seed
+```
+
+Criar Model Categories pelo Pacote **prettus/l5-repository**, após gerar os 
+arquivos é necessário registrar no RepositoryServiceProvider o bind apontando
+ para o model do Elquent.
+
+```bash
+# O comando abaixo ira gerar os seguinte arquivios:
+#################
+# Model: Category.php
+# Migrate: XXXX_create_categories_table.php
+# Interface: CategoryRepository.php
+# Classe Concreta: CategoryRepositoryEloquent.php
+#################
+$ php artisan make:repository Category
+```
+
+Controllers:
+
+```bash
+# Criando o Controller CategoryControler:
+$ php artisan make:controller Admin/CategoryController --model=Models/Category
 ```
