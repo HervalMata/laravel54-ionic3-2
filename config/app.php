@@ -1,7 +1,5 @@
 <?php
 
-use CodeFlix\Providers\RepositoryServiceProvider;
-
 return [
 
     /*

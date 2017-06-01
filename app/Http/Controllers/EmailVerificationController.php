@@ -3,7 +3,6 @@
 namespace CodeFlix\Http\Controllers;
 
 use CodeFlix\Repositories\UserRepository;
-use Illuminate\Http\Request;
 use Jrean\UserVerification\Traits\VerifiesUsers;
 use function url;
 
@@ -24,11 +23,18 @@ class EmailVerificationController extends Controller
         $this->repository = $repository;
     }
 
+    /**
+     * Metodo para redirecionar apos ativacao
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function redirectAfterVerification()
     {
         $this->loginUser();
 
-        return url('/admin/dashboard');
+        //return url('/admin/dashboard');
+        \Request::session()->flash('info', 'Altere sua senha!');
+        return url('/admin/change/password');
     }
 
     protected function loginUser()
