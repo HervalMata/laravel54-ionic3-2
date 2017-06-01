@@ -55,6 +55,8 @@ Route::group([
             ->get('/change/password', 'UserController@showPasswordForm');
         Route::name('update.password')
             ->put('update/password/{id}', 'UserController@updatePassword');
+        //categorias
+        Route::resource('categories', 'CategoryController');
     });
 });
 

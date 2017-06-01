@@ -104,6 +104,7 @@ $ php artisan make:controller Admin\\UserController --resource --model=Models\\U
 ```bash
 # http://bootstrapper.patrickrosemusic.co.uk/installation
 $ composer require patricktalmadge/bootstrapper:5.*
+# opcional
 ```
 
 #### 9 - Pacote [Laravel 5 form builder](https://github.com/kristijanhusak/laravel-form-builder)
@@ -192,4 +193,64 @@ mix.browserSync('http://localhost:8000');
 $ php artisan serve
 # rodando o watch
 $ npm run watch
+```
+
+#### 3 - Exercícios: Implementando Usuários e Categorias
+
+Usuários e Categorias
+
+Nesta primeira fase, você deverá implementar:
+
+* A autenticação administrativa dos usuários com verificação da conta.
+* A administração de usuários.
+* Uma área em que o usuário possa alterar sua senha. Cria duas rotas, uma para mostrar o formulário de alteração de senha e outra para realizar o processo. Quando o usuário validar a conta, deve ser redirecionado para a área de alteração de senha.
+* A administração de categorias. Cada categoria terá id e name.
+
+Faça todas as implementações usando repositórios e acrescente a barra de menus com os links necessários.
+
+```bash
+# Criar migrate categories metodo tradicional Laravel
+$ php artisan make:migration create_categories_table --create=categories
+# criando o model
+$ php artisan make:model Models/Category
+# ou tudo de uma vez
+$ php artisan make:model Category -m
+# cria mapeamento do Model
+$ php artisan ide-helper:models --dir="app/Models" "CodeFlix\Models\Category"
+# gera o ide_helper
+$ php artisan ide-helper:generate
+# criar classe para popilar dados
+$ php artisan make:seeder CategoriesTableSeeder
+# reset db
+$ php artisan migrate:refresh
+# comando para ler a classe que popula os dados
+$ php artisan db:seed
+```
+
+Criar Model Categories pelo Pacote **prettus/l5-repository**, após gerar os 
+arquivos é necessário registrar no RepositoryServiceProvider o bind apontando
+ para o model do Elquent.
+
+```bash
+# O comando abaixo ira gerar os seguinte arquivios:
+#################
+# Model: Category.php
+# Migrate: XXXX_create_categories_table.php
+# Interface: CategoryRepository.php
+# Classe Concreta: CategoryRepositoryEloquent.php
+#################
+$ php artisan make:repository Category
+```
+
+Controllers:
+
+```bash
+# Criando o Controller CategoryControler:
+$ php artisan make:controller Admin/CategoryController --model=Models/Category
+```
+
+Usando o pacote FormBuilder
+
+```bash
+$ php artisan make:form Forms/CategoryForm --fields="name:text"
 ```
