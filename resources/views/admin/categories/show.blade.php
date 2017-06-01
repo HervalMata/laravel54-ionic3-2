@@ -3,21 +3,22 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>Exibir Usuário</h3>
+            <h3>Exibir Categoria</h3>
             <?php
             $iconEdit = Icon::create('pencil');
             $iconDestroy = Icon::create('remove');
 
             $formDelete = FormBuilder::plain([
                 'id' => 'form-delete',
-                'route' => ['admin.users.destroy', 'user' => $user->id],
+                'route' => ['admin.categories.destroy', 'category' =>
+                    $category->id],
                 'method' => 'DELETE',
                 'style' => 'display:none',
             ]);
             ?>
-            {!! Button::primary($iconEdit)->asLinkTo(route('admin.users.edit', ['user'=>$user->id])) !!}
+            {!! Button::primary($iconEdit)->asLinkTo(route('admin.categories.edit', ['category'=>$category->id])) !!}
             {!! Button::danger($iconDestroy)
-                ->asLinkTo(route('admin.users.destroy', ['user'=>$user->id]))
+                ->asLinkTo(route('admin.categories.destroy', ['category'=>$category->id]))
                 ->addAttributes(['onclick'=> "event.preventDefault();document.getElementById(\"form-delete\").submit()
                 ;"])
             !!}
@@ -29,15 +30,11 @@
                     <tbody>
                     <tr>
                         <th scope="row">#</th>
-                        <td>{!! $user->id !!}</td>
+                        <td>{!! $category->id !!}</td>
                     </tr>
                     <tr>
                         <th scope="row">Nome</th>
-                        <td>{!! $user->name !!}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">E-maiil</th>
-                        <td>{!! $user->email !!}</td>
+                        <td>{!! $category->name !!}</td>
                     </tr>
                     </tbody>
                 </table>

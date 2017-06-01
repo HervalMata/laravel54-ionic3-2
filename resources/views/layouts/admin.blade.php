@@ -30,7 +30,11 @@
                 [
                     'link'=> route('admin.users.index'),
                     'title'=>'Usuário'
-                ]
+                ],
+                [
+                    'link'=> route('admin.categories.index'),
+                    'title'=>'Categoria'
+                ],
             ];
 
             $menuLeft = Navigation::links($arrayLinks);

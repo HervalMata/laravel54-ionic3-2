@@ -6,9 +6,10 @@
             <h3>Listagem de Categorias</h3>
             {!! Button::primary('Nova Categoria')
                 ->asLinkTo(route('admin.categories.create'))
-                ->appendIcon(Icon::plus())
+                ->prependIcon(Icon::plus())
             !!}
         </div>
+        <br>
         <div class="row">
             {!! Table::withContents($categories->items())
                 ->bordered()

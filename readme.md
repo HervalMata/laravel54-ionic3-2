@@ -248,3 +248,9 @@ Controllers:
 # Criando o Controller CategoryControler:
 $ php artisan make:controller Admin/CategoryController --model=Models/Category
 ```
+
+Usando o pacote FormBuilder
+
+```bash
+$ php artisan make:form Forms/CategoryForm --fields="name:text"
+```

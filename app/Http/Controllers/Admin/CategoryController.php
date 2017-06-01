@@ -2,15 +2,19 @@
 
 namespace CodeFlix\Http\Controllers\Admin;
 
+use CodeFlix\Forms\CategoryForm;
 use CodeFlix\Models\Category;
 use CodeFlix\Repositories\CategoryRepository;
 use function compact;
 use Illuminate\Http\Request;
 use CodeFlix\Http\Controllers\Controller;
-use function view;
+use Kris\LaravelFormBuilder\Facades\FormBuilder;
+use Kris\LaravelFormBuilder\FormBuilderTrait;
 
 class CategoryController extends Controller
 {
+    use FormBuilderTrait;
+
     /**
      * @var \CodeFlix\Repositories\CategoryRepository
      */
@@ -30,7 +34,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -46,62 +50,118 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $form = $this->form('CodeFlix\Forms\CategoryForm', [
+            'method' => 'POST',
+            'url' => route('admin.categories.store'),
+        ]);
+
+        return view('admin.categories.create', compact('form'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        /** @var Form $form */
+        //$form = FormBuilder::create(UserForm::class);
+        $form = $this->form(CategoryForm::class);
+
+        if (!$form->isValid()) {
+            //redirecionar para pag de criação de usuários
+            return redirect()
+                ->back()
+                ->withErrors($form->getErrors())
+                ->withInput();
+        }
+
+        $data = $form->getFieldValues();
+        $this->repository->create($data);
+        //enviando um msg de sucesso
+        $request->session()->flash('message', 'Categoria criada com sucesso!');
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \CodeFlix\Models\Category  $category
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $category = $this->repository->find($id);
+
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \CodeFlix\Models\Category  $category
+     * @param  \CodeFlix\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
     {
-        //
+        $form = FormBuilder::create(CategoryForm::class, [
+            'url' => route('admin.categories.update', ['category' =>
+                $category->id]),
+            'method' => 'PUT',
+            'model' => $category
+        ]);
+
+        return view('admin.categories.edit', compact('form'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \CodeFlix\Models\Category  $category
+     * @param  \Illuminate\Http\Request $request
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        /** @var Form $form */
+        $form = FormBuilder::create(CategoryForm::class, [
+            'data' => ['id' => $id]
+        ]);
+
+        if (!$form->isValid()) {
+            //redirecionar para pag de criação de catetorias
+            return redirect()
+                ->back()
+                ->withErrors($form->getErrors())
+                ->withInput();
+        }
+
+        //$data = array_except($form->getFieldValues(), ['role', 'password']);
+
+        //$user->fill($data);
+        //$user->save();
+        $this->repository->update($form->getFieldValues(), $id);
+        //enviando um msg de sucesso
+        $request->session()->flash('message', 'Categoria alterada com sucesso!');
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \CodeFlix\Models\Category  $category
+     * @param  \Illuminate\Http\Request $request
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request, $id)
     {
-        //
+        $this->repository->delete($id);
+        //enviando um msg de sucesso
+        $request->session()->flash('message', "Categoria ID: <strong>{$id}</strong> excluída com sucesso!");
+        return redirect()->route('admin.categories.index');
     }
 }
