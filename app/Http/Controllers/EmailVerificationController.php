@@ -3,6 +3,7 @@
 namespace CodeFlix\Http\Controllers;
 
 use CodeFlix\Repositories\UserRepository;
+use function dd;
 use Jrean\UserVerification\Traits\VerifiesUsers;
 use function url;
 
@@ -34,12 +35,15 @@ class EmailVerificationController extends Controller
 
         //return url('/admin/dashboard');
         \Request::session()->flash('info', 'Altere sua senha!');
-        return url('/admin/change/password');
+        return route('admin.user_settings.edit');
+        //return url('/admin/change/password');
+        //return url('/admin/users/settings');
     }
 
     protected function loginUser()
     {
         $email = \Request::get('email');
+        //dd($email);
         $user = $this->repository
             ->findByField('email', $email)->first();
         \Auth::login($user);

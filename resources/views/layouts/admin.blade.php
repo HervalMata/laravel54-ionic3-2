@@ -53,6 +53,10 @@
                         [
                             'link'=> route('admin.change.password'),
                             'title'=>'Meus Dados',
+                        ],
+                        [
+                            'link'=> route('admin.user_settings.edit'),
+                            'title'=>'Mudar Senha',
                         ]
                     ]
                 ]

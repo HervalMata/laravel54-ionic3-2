@@ -3,6 +3,7 @@
 namespace CodeFlix\Providers;
 
 use CodeFlix\Models\User;
+use function dd;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 

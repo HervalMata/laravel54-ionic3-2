@@ -50,11 +50,20 @@ Route::group([
             //return "Área Administrativa funcionando";
             return view('admin.dashboard');
         });
-        Route::resource('users', 'UserController');
+
+        //alter-data-user
         Route::name('change.password')
             ->get('/change/password', 'UserController@showPasswordForm');
         Route::name('update.password')
             ->put('update/password/{id}', 'UserController@updatePassword');
+        //solucao-prof
+        Route::name('user_settings.edit')
+            ->get('/users/settings', 'Auth\UserSettingsController@edit');
+        //end solucao-prof
+        Route::name('user_settings.update')
+            ->put('users/settings', 'Auth\UserSettingsController@update');
+
+        Route::resource('users', 'UserController');
         //categorias
         Route::resource('categories', 'CategoryController');
     });
