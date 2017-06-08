@@ -66,6 +66,7 @@ Route::group([
         Route::resource('users', 'UserController');
         //categorias
         Route::resource('categories', 'CategoryController');
+        Route::resource('series', 'SerieController');
     });
 });
 

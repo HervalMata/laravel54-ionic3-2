@@ -19,6 +19,7 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    @stack('styles')
 </head>
 <body>
 <div id="app">

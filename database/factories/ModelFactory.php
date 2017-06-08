@@ -42,3 +42,13 @@ $factory->state(\CodeFlix\Models\User::class, 'admin', function (Faker\Generator
         'role' => \CodeFlix\Models\User::ROLE_ADMIN,
     ];
 });
+
+$factory->define(\CodeFlix\Models\Serie::class,
+    function (Faker\Generator $faker) {
+
+        return [
+            'title' => $faker->sentence(3),
+            'description' => $faker->sentence(10),
+            'thumb' => 'thumb.jpg',
+        ];
+    });
