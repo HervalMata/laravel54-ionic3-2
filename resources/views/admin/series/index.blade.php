@@ -1,0 +1,39 @@
+@extends('layouts.admin')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            <h3>Listagem de Categorias</h3>
+            {!! Button::primary('Nova Serie')
+                ->asLinkTo(route('admin.series.create'))
+                ->prependIcon(Icon::plus())
+            !!}
+        </div>
+        <br>
+        <div class="row">
+            {!! Table::withContents($series->items())
+                ->bordered()
+                ->callback('Ações', function ($field, $c) {
+                    $linkEdit = route('admin.series.edit', ['serie' =>
+                    $c->id]);
+                    $linkShow = route('admin.series.show', ['serie' =>
+                    $c->id]);
+
+                    return Button::link(Icon::create('pencil'))
+                            ->asLinkTo($linkEdit) . '|'.
+                            Button::link(Icon::create('remove'))
+                            ->asLinkTo($linkShow);
+                })
+            !!}
+        </div>
+        {!! $series->links() !!}
+    </div>
+@endsection
+
+@push('styles')
+<style type="text/css">
+    table > thead > tr > th:nth-child(3){
+        width: 50%;
+    }
+</style>
+@endpush

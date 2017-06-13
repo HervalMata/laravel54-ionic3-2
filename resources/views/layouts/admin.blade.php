@@ -19,6 +19,7 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    @stack('styles')
 </head>
 <body>
 <div id="app">
@@ -34,6 +35,14 @@
                 [
                     'link'=> route('admin.categories.index'),
                     'title'=>'Categoria'
+                ],
+                [
+                    'link'=> route('admin.series.index'),
+                    'title'=>'Série'
+                ],
+                [
+                    'link'=> route('admin.videos.index'),
+                    'title'=>'Vídeos'
                 ],
             ];
 
