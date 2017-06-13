@@ -33,4 +33,19 @@ class VideoRepositoryEloquent extends BaseRepository implements VideoRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
+    /**
+     * @param array $attributes
+     * @param $id
+     * @return mixed
+     */
+    public function update(array $attributes, $id)
+    {
+        $model = parent::update($attributes, $id);
+        if(isset($attributes['categories'])){
+            $model->categories()->sync($attributes['categories']);
+        }
+
+        return $model;
+    }
 }
