@@ -52,3 +52,17 @@ $factory->define(\CodeFlix\Models\Serie::class,
             'thumb' => 'thumb.jpg',
         ];
     });
+
+$factory->define(\CodeFlix\Models\Video::class,
+    function (Faker\Generator $faker) {
+
+        return [
+            'title' => $faker->sentence(3),
+            'description' => $faker->sentence(10),
+            'duration'=> rand(1,30),
+            'file' => 'file.jpg',
+            'thumb' => 'thumb.jpg',
+            'published' => rand(0,1),
+            'completed' => 1
+        ];
+    });

@@ -67,6 +67,7 @@ Route::group([
         //categorias
         Route::resource('categories', 'CategoryController');
         Route::resource('series', 'SerieController');
+        Route::resource('videos', 'VideoController');
     });
 });
 

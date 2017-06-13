@@ -36,6 +36,14 @@
                     'link'=> route('admin.categories.index'),
                     'title'=>'Categoria'
                 ],
+                [
+                    'link'=> route('admin.series.index'),
+                    'title'=>'Série'
+                ],
+                [
+                    'link'=> route('admin.videos.index'),
+                    'title'=>'Vídeos'
+                ],
             ];
 
             $menuLeft = Navigation::links($arrayLinks);

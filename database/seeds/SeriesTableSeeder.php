@@ -12,8 +12,7 @@ class SeriesTableSeeder extends Seeder
      */
     public function run()
     {
-        Serie::truncate();
-
+        //Serie::truncate();
         $this->createData(5);
     }
 
