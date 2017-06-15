@@ -3,13 +3,14 @@
 namespace CodeFlix\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
+use CodeFlix\Media\SeriePathTrait;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 class Serie extends Model implements Transformable, TableInterface
 {
-    use TransformableTrait;
+    use TransformableTrait, SeriePathTrait;
 
     protected $fillable = ['title', 'description'];
 
