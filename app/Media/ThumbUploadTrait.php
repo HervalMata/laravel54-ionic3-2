@@ -39,7 +39,8 @@ trait ThumbUploadTrait
         /** @var FilesystemAdapter $storage */
         $storage = $model->getStorage();
         //gerando o nome arquivo
-        $name = md5(time() . "{$model->id}-{$file->getClientOriginalName()}") . "{$file->getExtension()}";
+        $name = md5(time() . "{$model->id}-{$file->getClientOriginalName()
+        }") . ".{$file->getExtension()}";
         //se nao guardar retorna false
         $result = $storage->putFileAs($model->thumb_folder_storage, $file, $name);
 
