@@ -1,8 +1,10 @@
 <?php
 
 use CodeFlix\Models\Video;
+use CodeFlix\Repositories\VideoRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\UploadedFile;
 
 class VideosTableSeeder extends Seeder
 {
@@ -13,7 +15,7 @@ class VideosTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->createData(100);
+        $this->createData(2);
     }
 
     private function createData($max = 5)
@@ -21,11 +23,19 @@ class VideosTableSeeder extends Seeder
         /** @var Collection $series */
         $series = \CodeFlix\Models\Serie::all();
         $categories = \CodeFlix\Models\Category::all();
+        $repository = app(VideoRepository::class);
+        $collectionThumbs = $this->getThumbs();
         factory(Video::class, $max)
             ->create()//cria o video e retorna uma collection
             //pode trabalhar com cada elemento da iteracao, no caso video
             // instancia incluida no BD
-            ->each(function ($video) use ($series, $categories) {
+            ->each(function ($video) use (
+                $series,
+                $categories,
+                $repository,
+                $collectionThumbs
+            ) {
+                $repository->uploadThumb($video->id, $collectionThumbs->random());
                 //pega a relacao e nao a colecao, se quiser pegar a colecao
                 // ($video->categories)
                 $video->categories()->attach($categories->random(4)->pluck('id'));
@@ -46,5 +56,15 @@ class VideosTableSeeder extends Seeder
 
         // Exibe uma informação no console durante o processo de seed
         $this->command->info($max . ' demo fake created');
+    }
+
+    protected function getThumbs()
+    {
+        return new \Illuminate\Support\Collection([
+            new UploadedFile(
+                storage_path('app/files/faker/thumbs/thumb_symfony.jpg'),
+                'thumb_symfony.jpg'
+            )
+        ]);
     }
 }

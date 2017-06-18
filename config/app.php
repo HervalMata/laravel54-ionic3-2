@@ -173,6 +173,7 @@ return [
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Jrean\UserVerification\UserVerificationServiceProvider::class,
+        Folklore\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -267,6 +268,7 @@ return [
         'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
         //https://github.com/jrean/laravel-user-verification
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
+        'Image' => Folklore\Image\Facades\Image::class,
 
     ],
 
