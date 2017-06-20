@@ -4,10 +4,13 @@ namespace CodeFlix\Http\Controllers\Admin;
 
 use CodeFlix\Models\Video;
 use CodeFlix\Repositories\VideoRepository;
+use function compact;
 use Illuminate\Http\Request;
 use CodeFlix\Http\Controllers\Controller;
 use Kris\LaravelFormBuilder\Facades\FormBuilder;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
+use function redirect;
+use function view;
 
 class VideoController extends Controller
 {
@@ -90,7 +93,7 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        //
+        return view('admin.videos.show', compact('video'));
     }
 
     /**
@@ -142,12 +145,14 @@ class VideoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \CodeFlix\Models\Video  $video
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Video $video)
+    public function destroy($id)
     {
-        //
+        $this->repository->delete($id);
+
+        return redirect()->route('admin.videos.index');
     }
 
     public function fileAsset(Video $video)
