@@ -168,10 +168,7 @@ class SerieController extends Controller
         return redirect()->route('admin.series.index');
     }
 
-    public function thumbAsset(Serie $serie)
-    {
-        return response()->download($serie->thumb_path);
-    }
+
 
     public function thumbSmallAsset(Serie $serie)
     {

@@ -13,7 +13,7 @@ class VideoUploadForm extends Form
             ->add('thumb', 'file',[
                 'required' => false,
                 'label'=> 'Thumbnail',
-                'rules' => 'image|max:1024'
+                'rules' => 'image|max:2048'
             ])
             ->add('file', 'file',[
                 'required' => false,

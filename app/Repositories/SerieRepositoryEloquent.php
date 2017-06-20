@@ -4,6 +4,7 @@ namespace CodeFlix\Repositories;
 
 use function array_except;
 use CodeFlix\Media\ThumbUploadTrait;
+use CodeFlix\Media\UploadTrait;
 use function dd;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -17,7 +18,7 @@ use CodeFlix\Validators\SerieValidator;
  */
 class SerieRepositoryEloquent extends BaseRepository implements SerieRepository
 {
-    use ThumbUploadTrait;
+    use ThumbUploadTrait, UploadTrait;
 
     public function create(array $attributes)
     {

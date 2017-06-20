@@ -25,8 +25,11 @@ trait ThumbPathTrait
      */
     public function getThumbPathAttribute()
     {
-        return $this->getAbsolutePath($this->getStorage(),
-            $this->thumb_relative);
+        if ($this->thumb_relative) {
+            return $this->getAbsolutePath($this->getStorage(),
+                $this->thumb_relative);
+        }
+        return false;
     }
 
     /**
@@ -34,8 +37,12 @@ trait ThumbPathTrait
      */
     public function getThumbSmallRelativeAttribute()
     {
-        list($name, $extension) = explode('.', $this->thumb);
-        return "{$this->thumb_folder_storage}/{$name}_small.{$extension}";
+        if ($this->thumb) {
+            list($name, $extension) = explode('.', $this->thumb);
+            return "{$this->thumb_folder_storage}/{$name}_small.{$extension}";
+        }
+
+        return false;
     }
 
     /**
@@ -43,8 +50,12 @@ trait ThumbPathTrait
      */
     public function getThumbSmallPathAttribute()
     {
-        return $this->getAbsolutePath($this->getStorage(),
-            $this->thumb_small_relative);
+        if ($this->thumb_small_relative) {
+            return $this->getAbsolutePath($this->getStorage(),
+                $this->thumb_small_relative);
+        }
+
+        return false;
     }
 
 }

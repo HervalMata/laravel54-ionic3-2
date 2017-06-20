@@ -2,7 +2,11 @@
 
 namespace CodeFlix\Providers;
 
+use CodeFlix\Models\Video;
+use function functionCallback;
 use Illuminate\Support\ServiceProvider;
+use const null;
+use const true;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //registrando um evento que ira executar algo apos a atualizacao do
+        //video - aula Concluindo uploads de arquivo
+        Video::updated(function($video){
+            if(!$video->completed) {
+                if ($video->file != null && $video->thumb != null) {
+                    $video->completed = true;
+                    $video->save();
+                }
+            }
+        });
     }
 
     /**

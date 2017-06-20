@@ -13,6 +13,7 @@ use function time;
 
 trait ThumbUploadTrait
 {
+    //use UploadTrait;
     /**
      * @param $id
      * @param UploadedFile $file
@@ -22,7 +23,7 @@ trait ThumbUploadTrait
     {
         $model = $this->find($id);
         //movendo o file para o lugar certo
-        $name = $this->upload($model, $file);
+        $name = $this->upload($model, $file, 'thumb');
         if ($name) {
             $this->deleteThumbOld($model);
             $model->thumb = $name;
@@ -40,27 +41,6 @@ trait ThumbUploadTrait
         $format = \Image::format($thumbFile);
         $thumbnailSmall = \Image::open($thumbFile)->thumbnail(new Box(64, 36));
         $storage->put($model->thumb_small_relative, $thumbnailSmall->get($format));
-    }
-
-    /**
-     * @param $model
-     * @param UploadedFile $file
-     * @return false|string
-     */
-    public function upload($model, UploadedFile $file)
-    {
-
-        /** @var FilesystemAdapter $storage */
-        $storage = $model->getStorage();
-        //gerando o nome arquivo
-        $name = md5(time() . "{$model->id}-{$file->getClientOriginalName()
-        }") . ".{$file->getClientOriginalExtension()}";
-
-        //dd($name);
-        //se nao guardar retorna false
-        $result = $storage->putFileAs($model->thumb_folder_storage, $file, $name);
-
-        return $result ? $name : $result;
     }
 
     public function deleteThumbOld($model)

@@ -25,6 +25,7 @@ class VideosTableSeeder extends Seeder
         $categories = \CodeFlix\Models\Category::all();
         $repository = app(VideoRepository::class);
         $collectionThumbs = $this->getThumbs();
+        $collectionVideos = $this->getVideos();
         factory(Video::class, $max)
             ->create()//cria o video e retorna uma collection
             //pode trabalhar com cada elemento da iteracao, no caso video
@@ -33,9 +34,12 @@ class VideosTableSeeder extends Seeder
                 $series,
                 $categories,
                 $repository,
-                $collectionThumbs
+                $collectionThumbs,
+                $collectionVideos
             ) {
                 $repository->uploadThumb($video->id, $collectionThumbs->random());
+                $repository->uploadFile($video->id, $collectionVideos->random
+                ());
                 //pega a relacao e nao a colecao, se quiser pegar a colecao
                 // ($video->categories)
                 $video->categories()->attach($categories->random(4)->pluck('id'));
@@ -64,6 +68,16 @@ class VideosTableSeeder extends Seeder
             new UploadedFile(
                 storage_path('app/files/faker/thumbs/thumb_symfony.jpg'),
                 'thumb_symfony.jpg'
+            )
+        ]);
+    }
+
+    protected function getVideos()
+    {
+        return new \Illuminate\Support\Collection([
+            new UploadedFile(
+                storage_path('app/files/faker/videos/Fluxo-git-flow.mp4'),
+                'Fluxo-git-flow.mp4'
             )
         ]);
     }

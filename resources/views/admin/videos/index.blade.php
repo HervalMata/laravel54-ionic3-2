@@ -16,8 +16,8 @@
                 ->callback('Descrição', function ($field, $v) {
                     return \Bootstrapper\Facades\MediaObject::withContents(
                         [
-                            'image' => '//placehold.it/64x64',
-                            'link' => '#',
+                            'image' => $v->thumb_small_path,
+                            'link' => $v->file_path,
                             'heading' => $v->title,
                             'body' => $v->description
                         ]

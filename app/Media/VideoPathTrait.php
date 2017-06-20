@@ -4,6 +4,7 @@ namespace CodeFlix\Media;
 
 
 use function explode;
+use const false;
 use function route;
 
 trait VideoPathTrait
@@ -27,20 +28,44 @@ trait VideoPathTrait
         return "videos/{$this->id}";
     }
 
-
-    public function getThumbAssetAttribute()
+    public function getFileFolderStorageAttribute()
     {
-        //return route('admin.series.thumb_asset', ['serie'=>$this->id]);
+        return "videos/{$this->id}";
     }
 
-    public function getThumbSmallAssetAttribute()
+    public function getFileAssetAttribute()
     {
-        //return route('admin.series.thumb_small_asset', ['serie'=>$this->id]);
+        return $this->isLocalDriver()?
+            route('admin.videos.file_asset',['video' => $this->id]):
+            $this->file_path;
     }
 
     public function getThumbDefaultAttribute()
     {
         return env('VIDEO_NO_THUMB');
+    }
+
+    /**
+     * objetivo retornar a pasta de armazenamento com o atributo thumb do BD
+     * @return string
+     */
+    public function getFileRelativeAttribute()
+    {
+        return $this->file ? "{$this->file_folder_storage}/{$this->file}"
+            : false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFilePathAttribute()
+    {
+        if($this->file_relative) {
+            return $this->getAbsolutePath($this->getStorage(),
+                $this->file_relative);
+        }
+
+        return false;
     }
 
 }

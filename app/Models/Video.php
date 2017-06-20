@@ -24,6 +24,10 @@ class Video extends Model implements Transformable, TableInterface
         'serie_id',
     ];
 
+    protected $casts = [
+        'completed' => 'boolean'
+    ];
+
     /**
      * 1 Video tem 1 Serie
      * 1 Serie tem varios Videos
