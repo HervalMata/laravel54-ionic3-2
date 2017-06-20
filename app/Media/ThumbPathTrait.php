@@ -4,6 +4,7 @@ namespace CodeFlix\Media;
 
 
 use function env;
+use const false;
 
 trait ThumbPathTrait
 {
@@ -15,7 +16,8 @@ trait ThumbPathTrait
      */
     public function getThumbRelativeAttribute()
     {
-        return "{$this->thumb_folder_storage}/{$this->thumb}";
+        return $this->thumb ? "{$this->thumb_folder_storage}/{$this->thumb}"
+            : false;
     }
 
     /**
