@@ -7,6 +7,7 @@ use CodeFlix\Forms\UserForm;
 use CodeFlix\Models\User;
 use CodeFlix\Repositories\UserRepository;
 use function compact;
+use function dd;
 use FormBuilder;
 use Illuminate\Http\Request;
 use CodeFlix\Http\Controllers\Controller;
@@ -38,6 +39,8 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->repository->paginate();
+
+        //dd(\Auth::user()->id);
 
         return view('admin.users.index', compact('users'));
     }

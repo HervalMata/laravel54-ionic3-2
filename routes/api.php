@@ -16,3 +16,24 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/*
+Route::get('/test', function () {
+    //return ['message' => 'JSON criado com sucesso'];
+    return \CodeFlix\Models\User::all();
+});
+*/
+
+ApiRoute::version('v1', function () {
+    ApiRoute::get('test1', function () {
+        //return \CodeFlix\Models\User::paginate();
+        return "teste";
+    });
+});
+
+ApiRoute::version('v2', function () {
+    ApiRoute::get('test2', function () {
+        //return \CodeFlix\Models\User::paginate();
+        return "teste";
+    });
+});

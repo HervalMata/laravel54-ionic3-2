@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => 'local',
+    'default' => env('STORAGE_DRIVER', 'videos_local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,6 +53,11 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+        ],
+        //aula 54
+        'videos_local' =>[
+            'driver' => 'local',
+            'root' => storage_path('app/videos_test'),
         ],
 
         's3' => [

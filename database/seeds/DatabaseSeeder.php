@@ -11,7 +11,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(UsersTableSeeder::class);
-         $this->call(CategoriesTableSeeder::class);
+        $this->deletDirectory();
+        $this->call(UsersTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(SeriesTableSeeder::class);
+        $this->call(VideosTableSeeder::class );
+    }
+
+    public function deletDirectory()
+    {
+        $rootPath = config('filesystems.disks.videos_local.root');
+        \File::deleteDirectory($rootPath, true);
     }
 }

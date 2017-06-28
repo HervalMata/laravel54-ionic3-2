@@ -254,3 +254,14 @@ Usando o pacote FormBuilder
 ```bash
 $ php artisan make:form Forms/CategoryForm --fields="name:text"
 ```
+
+Criando Manter Série:
+```bash
+# com o plugin do la5 no zsh bash pode usar o la5 ou php artisan para 
+autocomplete
+$ la5 make:repository Serie
+# ou
+$ php artisan make:repository Serie
+$ la5 make:controller Admin/SerieController --resource --model=CodeFlix/Models/Serie
+$ php artisan make:seeder SeriesTableSeeder
+```
