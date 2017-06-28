@@ -174,6 +174,7 @@ return [
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Jrean\UserVerification\UserVerificationServiceProvider::class,
         Folklore\Image\ImageServiceProvider::class,
+        Dingo\Api\Provider\LaravelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -269,6 +270,7 @@ return [
         //https://github.com/jrean/laravel-user-verification
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
         'Image' => Folklore\Image\Facades\Image::class,
+        'ApiRoute' => Dingo\Api\Facade\Route::class,
 
     ],
 

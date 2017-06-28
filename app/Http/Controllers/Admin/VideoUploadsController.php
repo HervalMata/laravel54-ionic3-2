@@ -71,6 +71,10 @@ class VideoUploadsController extends Controller
         if($request->file('file')) {
             $this->repository->uploadFile($id, $request->file('file'));
         }
+
+        $this->repository->update(['duration' => $request->get('duration')],
+            $id);
+
         //enviando um msg de sucesso
         $request->session()->flash('message', 'Uploads realizados com sucesso!');
 
