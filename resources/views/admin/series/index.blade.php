@@ -12,12 +12,22 @@
         <br>
         <div class="row">
             {!! Table::withContents($series->items())
-                ->bordered()
-                ->callback('Ações', function ($field, $c) {
+                ->striped()
+                ->callback('Descrição', function ($field, $serie) {
+                    return \Bootstrapper\Facades\MediaObject::withContents(
+                        [
+                            'image' => $serie->thumb_small_asset,
+                            'link' => '#',
+                            'heading' => $serie->title,
+                            'body' => $serie->description
+                        ]
+                    );
+                })
+                ->callback('Ações', function ($field, $serie) {
                     $linkEdit = route('admin.series.edit', ['serie' =>
-                    $c->id]);
+                    $serie->id]);
                     $linkShow = route('admin.series.show', ['serie' =>
-                    $c->id]);
+                    $serie->id]);
 
                     return Button::link(Icon::create('pencil'))
                             ->asLinkTo($linkEdit) . '|'.

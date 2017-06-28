@@ -66,12 +66,20 @@ Route::group([
         Route::resource('users', 'UserController');
         //categorias
         Route::resource('categories', 'CategoryController');
+        Route::name('series.thumb_asset')->get('series/{serie}/thumb_asset',
+        'SerieController@thumbAsset');
+        Route::name('series.thumb_small_asset')->get('series/{serie}/thumb_small_asset',
+            'SerieController@thumbSmallAsset');
         Route::resource('series', 'SerieController');
 
         Route::group(['prefix'=> 'videos', 'as' => 'videos.'], function (){
             Route::name('relations.create')->get('{video}/relations', 'VideoRelationsController@create');
             Route::name('relations.store')->post('{video}/relations', 'VideoRelationsController@store');
+            Route::name('uploads.create')->get('{video}/uploads', 'VideoUploadsController@create');
+            Route::name('uploads.store')->post('{video}/uploads', 'VideoUploadsController@store');
         });
+        Route::name('videos .file_asset')->get('videos/{video}/file_asset',
+            'VideosController@fileAsset');
         Route::resource('videos', 'VideoController');
     });
 });

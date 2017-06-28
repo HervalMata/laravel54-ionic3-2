@@ -2,6 +2,9 @@
 
 namespace CodeFlix\Repositories;
 
+use CodeFlix\Media\ThumbUploadTrait;
+use CodeFlix\Media\UploadTrait;
+use CodeFlix\Media\VideoUploadTrait;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFlix\Repositories\VideoRepository;
@@ -14,6 +17,8 @@ use CodeFlix\Validators\VideoValidator;
  */
 class VideoRepositoryEloquent extends BaseRepository implements VideoRepository
 {
+    use ThumbUploadTrait, VideoUploadTrait, UploadTrait;
+
     /**
      * Specify Model class name
      *

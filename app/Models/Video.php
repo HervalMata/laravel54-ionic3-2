@@ -3,13 +3,17 @@
 namespace CodeFlix\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
+use CodeFlix\Media\VideoPathTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 class Video extends Model implements Transformable, TableInterface
 {
     use TransformableTrait;
+    use VideoPathTrait;
+    use SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -20,6 +24,10 @@ class Video extends Model implements Transformable, TableInterface
         //'completed',
         'published',
         'serie_id',
+    ];
+
+    protected $casts = [
+        'completed' => 'boolean'
     ];
 
     /**
