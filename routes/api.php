@@ -24,16 +24,40 @@ Route::get('/test', function () {
 });
 */
 
+//Client - eh a app
 ApiRoute::version('v1', function () {
-    ApiRoute::get('test1', function () {
-        //return \CodeFlix\Models\User::paginate();
-        return "teste";
+//    ApiRoute::get('test1', function () {
+//        //return \CodeFlix\Models\User::paginate();
+//        return "teste";
+//    });
+
+    ApiRoute::group([
+        'namespace'=> 'CodeFlix\Http\Controllers\Api',
+        'as' => 'api'
+    ], function (){
+        //aula rate limiting
+        ApiRoute::post('/access_token', [
+            'uses' => 'AuthController@accessToken',
+            'middleware' => 'api.throttle',
+            'limit' => 10,
+            'expires' => 1
+        ])->name('.access_token');
+
+        ApiRoute::group([
+            'middleware' => 'api.throttle',
+            'limit' => 100,
+            'expires' => 3
+        ], function (){
+            //endpoints que irao precisar de autenticacao
+        });
+
     });
+
 });
 
-ApiRoute::version('v2', function () {
-    ApiRoute::get('test2', function () {
-        //return \CodeFlix\Models\User::paginate();
-        return "teste";
-    });
-});
+//ApiRoute::version('v2', function () {
+//    ApiRoute::get('test2', function () {
+//        //return \CodeFlix\Models\User::paginate();
+//        return "teste";
+//    });
+//});

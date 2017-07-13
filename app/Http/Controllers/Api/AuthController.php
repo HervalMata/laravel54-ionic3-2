@@ -1,0 +1,33 @@
+<?php
+
+namespace CodeFlix\Http\Controllers\Api;
+
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use CodeFlix\Http\Controllers\Controller;
+
+
+class AuthController extends Controller
+{
+    use AuthenticatesUsers;
+
+    public function accessToken(Request $request)
+    {
+        $this->validateLogin($request);
+        $credentials = $this->credentials($request);
+
+        //se for o token correto ira passar pelo if abaixo
+        if($token = \Auth::guard('api')->attempt($credentials)){
+            return $this->sendLoginResponse($request, $token);
+        }
+    }
+
+    protected function sendLoginResponse(Request $request, $token)
+    {
+//        return response()->json([
+//            'token' => $token
+//        ]);
+        //ou
+        return ['token' => $token];
+    }
+}
