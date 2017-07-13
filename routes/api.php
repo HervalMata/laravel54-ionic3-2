@@ -43,12 +43,21 @@ ApiRoute::version('v1', function () {
             'expires' => 1
         ])->name('.access_token');
 
+//        ApiRoute::get('/test1', function () {
+//            return "teste";
+//        });
+
+        //grupo
         ApiRoute::group([
-            'middleware' => 'api.throttle',
+            'middleware' => ['api.throttle', 'api.auth'],
             'limit' => 100,
             'expires' => 3
         ], function (){
+            ApiRoute::post('/logout', 'AuthController@logout');
             //endpoints que irao precisar de autenticacao
+            ApiRoute::get('/test', function () {
+                return "Autenticacao realizada com sucesso!";
+            });
         });
 
     });
