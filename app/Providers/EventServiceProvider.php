@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'CodeFlix\Events\SomeEvent' => [
-            'CodeFlix\Listeners\EventListener',
+        \Dingo\Api\Event\ResponseWasMorphed::class => [
+            'CodeFlix\Listeners\AddTokenHeaderEventListener',
         ],
     ];
 
