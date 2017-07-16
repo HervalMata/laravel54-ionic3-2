@@ -43,6 +43,13 @@ ApiRoute::version('v1', function () {
             'expires' => 1
         ])->name('.access_token');
 
+        ApiRoute::post('/refresh_token', [
+            'uses' => 'AuthController@refreshToken',
+            'middleware' => 'api.throttle',
+            'limit' => 10,
+            'expires' => 1
+        ])->name('.refresh_token');
+
 //        ApiRoute::get('/test1', function () {
 //            return "teste";
 //        });
