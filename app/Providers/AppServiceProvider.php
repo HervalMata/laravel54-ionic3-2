@@ -46,20 +46,20 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
 
-        $this->app->bind(
-            'bootstrapper::form',
-            function ($app) {
-                $form = new Form(
-                    $app->make('collective::html'),
-                    $app->make('url'),
-                    $app->make('view'),
-                    $app['session.store']->token()
-                );
-
-                return $form->setSessionStore($app['session.store']);
-            },
-            true
-        );
+//        $this->app->bind(
+//            'bootstrapper::form',
+//            function ($app) {
+//                $form = new Form(
+//                    $app->make('collective::html'),
+//                    $app->make('url'),
+//                    $app->make('view'),
+//                    $app['session.store']->token()
+//                );
+//
+//                return $form->setSessionStore($app['session.store']);
+//            },
+//            true
+//        );
 
         $handler = app(Handler::class);
 
