@@ -9,8 +9,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use const null;
 use function str_random;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements TableInterface
+class User extends Authenticatable implements TableInterface, JWTSubject
 {
     use Notifiable;
 
@@ -85,5 +86,31 @@ class User extends Authenticatable implements TableInterface
             case 'E-mail':
                 return $this->email;
         }
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [
+            'user' => [
+                'id' => $this->id,
+                'name' => $this->name,
+                'email' => $this->email,
+            ]
+        ];
     }
 }

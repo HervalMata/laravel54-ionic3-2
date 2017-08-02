@@ -256,12 +256,66 @@ $ php artisan make:form Forms/CategoryForm --fields="name:text"
 ```
 
 Criando Manter Série:
+
 ```bash
-# com o plugin do la5 no zsh bash pode usar o la5 ou php artisan para 
+#com o plugin do la5 no zsh bash pode usar o la5 ou php artisan para 
 autocomplete
 $ la5 make:repository Serie
-# ou
+#ou
 $ php artisan make:repository Serie
 $ la5 make:controller Admin/SerieController --resource --model=CodeFlix/Models/Serie
 $ php artisan make:seeder SeriesTableSeeder
 ```
+
+API:
+
+usando a biblioteca jwt-auth:
+
+```bash
+#https://github.com/tymondesigns/jwt-auth
+$ composer require tymon/jwt-auth:"dev-develop#9f759fe9e3112e1de50920c05537d752780cf966"
+
+#add no app.php
+'Tymon\JWTAuth\Providers\JWTAuthServiceProvider'
+
+$ php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+
+$ php artisan jwt:secret
+
+$ php artisan make:controller Api\AuthController
+
+```
+
+Entendeno o Token: https://jwt.io/
+
+```json
+{
+  //quem eh o emissor do token
+  "iss": "http://localhost:8000/api/access_token",
+  
+  //data de qudo foi gerado o token
+  "iat": 1499391203,
+  
+  //data de quando expira o token
+  "exp": 1499394803,
+  //diz q soh pode ser usado a partir de tal momento
+  "nbf": 1499391203,
+  
+  //id unico para identificar o token
+  "jti": "v6ideJGjL9dUcy6N",
+  
+  //sujeito do token que a resposta da implementacao do metodo
+  //da interface getJWTIdentifier(), no model User.
+  "sub": 1,
+  
+  //as identificacoes customizadas de reivindicacao, implementado 
+  //pela interface JWTSubject->getJWTCustomClaims(), no model User 
+  "user": {
+    "id": 1,
+    "name": "Administrator",
+    "email": "admin@user.com"
+  }
+}
+```
+
+Aula Rate limiting ok
