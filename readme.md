@@ -319,3 +319,11 @@ Entendeno o Token: https://jwt.io/
 ```
 
 Aula Rate limiting ok
+
+Aula Pontapé com IONIC 3
+
+```bash
+
+$ ionic start codeflix-app sidemenu
+
+```
