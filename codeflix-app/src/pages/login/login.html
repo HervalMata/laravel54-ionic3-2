@@ -9,11 +9,13 @@
           </ion-card-header>
           <ion-card-content>
             <ion-card-title text-center>CodeFlix</ion-card-title>
-            <form>
+            <form (submit)="login()">
               <ion-item>
                 <ion-input type="text" name="email"
-                           placeholder="E-mail"></ion-input>
+                           placeholder="E-mail"
+                           [(ngModel)]="email"></ion-input>
               </ion-item>
+              {{ email }}
               <ion-item>
                 <ion-input type="password" name="password"
                            placeholder="Senha"></ion-input>
