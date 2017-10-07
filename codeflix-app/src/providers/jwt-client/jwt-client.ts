@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Storage} from "@ionic/storage";
+import {JwtHelper} from "angular2-jwt";
 
 import {JwtCredentials} from "../../models/jwt-credentials";
 
@@ -15,10 +16,31 @@ import {JwtCredentials} from "../../models/jwt-credentials";
 export class JwtClientProvider {
 
   private _token = null;
+  private _payload = null;
 
-  constructor(public http: Http, public storage:Storage) {
-    this.getToken().then((token)=>{
-      console.log(token);
+
+  constructor(
+    public http: Http,
+    public storage: Storage,
+    public jwtHelper: JwtHelper
+  ) {
+    this.getToken();
+    this.getPayload().then((payload)=>{
+      console.log(payload);
+    })
+  }
+
+  getPayload(): Promise<Object>{
+    return new Promise((resolve) => {
+      if(this._payload){
+        resolve(this._payload);
+      }
+      this.getToken().then((token) => {
+        if(token){
+          this._payload = this.jwtHelper.decodeToken(token);
+        }
+        resolve(this._payload);
+      });
     });
   }
 
