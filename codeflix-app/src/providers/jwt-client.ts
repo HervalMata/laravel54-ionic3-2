@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import {Storage} from "@ionic/storage";
 import {JwtHelper} from "angular2-jwt";
 
-import {JwtCredentials} from "../../models/jwt-credentials";
+import {JwtCredentials} from "../models/jwt-credentials";
 
 /*
   Generated class for the JwtClientProvider provider.

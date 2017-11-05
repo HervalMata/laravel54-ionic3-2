@@ -12,7 +12,8 @@ import {ListPage} from '../pages/list/list';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
-import {JwtClientProvider} from '../providers/jwt-client/jwt-client';
+import {JwtClientProvider} from '../providers/jwt-client';
+import {AuthProvider} from '../providers/auth';
 
 
 
@@ -42,7 +43,8 @@ import {JwtClientProvider} from '../providers/jwt-client/jwt-client';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     JwtClientProvider,
-    JwtHelper
+    JwtHelper,
+    AuthProvider
   ]
 })
 export class AppModule {

@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import {LoginPage} from "../pages/login/login";
+import {AuthProvider} from "../providers/auth";
 
 @Component({
   templateUrl: 'app.html'
@@ -16,8 +17,12 @@ export class MyApp {
   rootPage: any = LoginPage;
 
   pages: Array<{title: string, component: any}>;
+  user:any;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform,
+              public statusBar: StatusBar,
+              public splashScreen: SplashScreen,
+              public auth: AuthProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -29,6 +34,9 @@ export class MyApp {
   }
 
   initializeApp() {
+    this.auth.user().then(user => {
+      this.user = user;
+    });
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
